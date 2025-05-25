@@ -14,11 +14,13 @@ Stack* Stack_create() {
     return stack;
 }
 
+
 void Stack_clean(Stack* stack) {
     while ( Stack_get_size(stack) > 0) {
         Stack_pop(stack);
     } 
 }
+
 
 void Stack_delete(Stack* stack) {
     Stack_clean(stack);

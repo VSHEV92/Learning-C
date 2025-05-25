@@ -4,15 +4,28 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 #define STACK_MALLOC_ERR {              \
     fprintf( stderr, "Malloc error" );  \
     exit(1);                            \
 }
 
+
 #define STACK_POP_ERR {                         \
     fprintf( stderr, "Pop from empty stack" );  \
     exit(1);                                    \
 }
+
+
+#define Stack_push_typed(stack, value, type) {  \
+        Stack_push(stack, &value);              \
+    }                                           \
+
+
+#define Stack_pop_typed(stack, type) {(         \
+        *( (type*)Stack_pop(stack) )            \
+    )}                                          \
+
 
 typedef struct Stack_node {
     void* value;

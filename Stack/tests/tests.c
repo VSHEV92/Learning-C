@@ -1,7 +1,11 @@
 #include "tests.h"
 
 test_func_t tests[] = {
+    stack_push_pop_int_test,
+    stack_clean_int_test,
 
+    stack_push_pop_string_test,
+    stack_clean_string_test,
 };
 
 int main() {

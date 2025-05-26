@@ -49,6 +49,15 @@ typedef void (*Stack_printer)(void* value);
 
 
 /**
+ *  Helper macro for check print when printer is NULL error
+ */
+#define STACK_PRINTER_ERR {                         \
+    fprintf( stderr, "Print with NULL printer" );   \
+    exit(1);                                        \
+}
+
+
+/**
  *  Helper macro for push data of certain type
  *  
  *  args:

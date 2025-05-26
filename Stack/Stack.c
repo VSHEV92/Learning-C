@@ -76,6 +76,10 @@ void Stack_print(Stack* stack) {
     Stack* temp_stack = Stack_create();
     Stack_printer printer = (Stack_printer)stack->printer;
 
+    if (printer == NULL){
+        STACK_PRINTER_ERR;
+    }
+
     // get value from stack, print and save to temp stacl
     while ( Stack_get_size(stack) > 0) {
         void* value = Stack_pop(stack);

@@ -38,10 +38,20 @@ void List_push_front(List* list, void* value) {
     }
 
     node->value = value;
-    node->next = list->head;
-    node->prev = NULL;
-    
-    list->head = node;
+
+    if (list->size == 0){
+        node->next = NULL;
+        node->prev = NULL;
+        list->head = node;
+        list->tail = node;
+    }
+    else {
+        node->next = list->head;
+        node->prev = NULL;
+        list->head->prev = node;
+        list->head = node;
+    }
+
     list->size++;
 }
 
@@ -52,19 +62,17 @@ void* List_pop_front(List* list) {
         LIST_POP_ERR;
     }
 
-    void* value = list->head->value;
-    
     List_node* to_remove = list->head;
 
-    // If it is not last node set new head and change pointer 
-    // to previous node. 
-    // Else simply set head to NULL
-    if (list->size != 1) { 
-        list->head = list->head->next;
-        list->head->prev = NULL;
+    void* value = list->head->value;
+    
+    if (list->size == 1) { 
+        list->head = NULL;
+        list->tail = NULL;
     }
     else {
-        list->head = NULL;
+        list->head = list->head->next;
+        list->head->prev = NULL;
     }
     
     list->size--;
@@ -83,10 +91,20 @@ void List_push_back(List* list, void* value) {
     }
 
     node->value = value;
-    node->next = NULL;
-    node->prev = list->tail;
-    
-    list->tail = node;
+
+    if (list->size == 0){
+        node->next = NULL;
+        node->prev = NULL;
+        list->head = node;
+        list->tail = node;
+    }
+    else {
+        node->prev = list->tail;
+        node->next = NULL;
+        list->tail->next = node;
+        list->tail = node;
+    }
+
     list->size++;
 }
 
@@ -97,19 +115,17 @@ void* List_pop_back(List* list) {
         LIST_POP_ERR;
     }
 
-    void* value = list->tail->value;
-    
     List_node* to_remove = list->tail;
 
-    // If it is not last node set new tail and change pointer 
-    // to previous node. 
-    // Else simply set tail to NULL
-    if (list->size != 1) { 
-        list->tail = list->tail->prev;
-        list->tail->next = NULL;
+    void* value = list->tail->value;
+    
+    if (list->size == 1) { 
+        list->head = NULL;
+        list->tail = NULL;
     }
     else {
-        list->tail = NULL;
+        list->tail = list->tail->prev;
+        list->tail->next = NULL;
     }
     
     list->size--;
@@ -125,11 +141,34 @@ size_t List_get_size(List* list) {
 }
 
 
-void List_set_printer(List* List, List_printer printer) {
+void* List_get_value_by_index(List* list, size_t index) {
+    if (index >= list->size){
+        LIST_INDEX_ERR;
+    }
 
+    List_node* node = list->head;
+
+    for (size_t i = 0; i < index; i++) {
+        node = node->next;
+    }
+    return node->value;
+}
+
+
+void List_set_printer(List* list, List_printer printer) {
+    list->printer = printer;
 }
 
 
 void List_print(List* list) {
+    if (list->printer == NULL){
+        LIST_PRINTER_ERR;
+    }
 
+    List_printer printer = (List_printer)list->printer;
+
+    for (size_t i = 0; i < list->size; i++) {
+        void* value = List_get_value_by_index(list, i);
+        printer(value);
+    }
 }

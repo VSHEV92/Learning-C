@@ -60,6 +60,15 @@ typedef void (*List_printer)(void* value);
 
 
 /**
+ *  Helper macro for index out of range error
+ */
+#define LIST_INDEX_ERR {                            \
+    fprintf( stderr, "Index is out of range" );     \
+    exit(1);                                        \
+}
+
+
+/**
  *  Helper macro for push front data of certain type
  *  
  *  args:
@@ -115,6 +124,21 @@ typedef void (*List_printer)(void* value);
 #define List_pop_back_typed(list, type) {(     \
         *( (type*)List_pop_back(list) )        \
     )}                                         \
+
+
+/**
+ *  Helper macro for get data by index of certain type
+ *  
+ *  args:
+ *      list: pointer to List
+ *      index: index in list
+ *      type:  type of poped value
+ *  
+ *  return: (type)value
+ */
+#define List_get_value_by_index_typed(list, index, type) {(           \
+        *( (type*)List_get_value_by_index(list, index) )    \
+    )}                                                      \
 
 
 /**
@@ -205,6 +229,18 @@ size_t List_get_size(List* list);
 
 
 /**
+ *  Get value by index in list  
+ *
+ *  args:
+ *      list: poiner to List
+ *      index: index in list
+ *  
+ *  return: (void*) pointer to poped value 
+ */
+void* List_get_value_by_index(List* list, size_t index);
+
+
+/**
  *  Set function, that can print list node value 
  *
  *  args:
@@ -213,7 +249,7 @@ size_t List_get_size(List* list);
  *  
  *  return: void
  */
-void List_set_printer(List* List, List_printer printer);
+void List_set_printer(List* list, List_printer printer);
 
 
 /**

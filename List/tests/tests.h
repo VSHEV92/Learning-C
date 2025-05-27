@@ -16,4 +16,7 @@ void list_push_pop_front_int_test();
 void list_push_pop_back_int_test();
 void list_push_back_pop_front_int_test();
 
+void list_push_back_clean_int_test();
+void list_push_front_clean_int_test();
+
 #endif

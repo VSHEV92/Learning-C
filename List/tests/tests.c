@@ -4,6 +4,9 @@ test_func_t tests[] = {
     list_push_pop_front_int_test,
     list_push_pop_back_int_test,
     list_push_back_pop_front_int_test,
+
+    list_push_back_clean_int_test,
+    list_push_front_clean_int_test,
 };
 
 int main() {

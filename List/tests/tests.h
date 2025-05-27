@@ -13,5 +13,6 @@ typedef void (*test_func_t)(void);
 
 // tests
 void list_push_pop_front_int_test();
+void list_push_pop_back_int_test();
 
 #endif

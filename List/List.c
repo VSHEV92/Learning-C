@@ -29,6 +29,7 @@ void List_delete(List* list) {
     free(list);
 }
 
+
 void List_push_front(List* list, void* value) {
     List_node* node = malloc( sizeof(List_node) );
 
@@ -64,6 +65,51 @@ void* List_pop_front(List* list) {
     }
     else {
         list->head = NULL;
+    }
+    
+    list->size--;
+    
+    free(to_remove);
+
+    return value;
+}
+
+
+void List_push_back(List* list, void* value) {
+    List_node* node = malloc( sizeof(List_node) );
+
+    if (node == NULL) {
+        LIST_MALLOC_ERR;
+    }
+
+    node->value = value;
+    node->next = NULL;
+    node->prev = list->tail;
+    
+    list->tail = node;
+    list->size++;
+}
+
+
+void* List_pop_back(List* list) {
+
+    if (list->size == 0) {
+        LIST_POP_ERR;
+    }
+
+    void* value = list->tail->value;
+    
+    List_node* to_remove = list->tail;
+
+    // If it is not last node set new tail and change pointer 
+    // to previous node. 
+    // Else simply set tail to NULL
+    if (list->size != 1) { 
+        list->tail = list->tail->prev;
+        list->tail->next = NULL;
+    }
+    else {
+        list->tail = NULL;
     }
     
     list->size--;

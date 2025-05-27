@@ -89,6 +89,35 @@ typedef void (*List_printer)(void* value);
 
 
 /**
+ *  Helper macro for push back data of certain type
+ *  
+ *  args:
+ *      list: pointer to List
+ *      value: pushed vlaue
+ *      type:  type of pushed value
+ *  
+ *  return: void
+ */
+#define List_push_back_typed(list, value, type) {   \
+        List_push_back(list, &value);               \
+    }                                               \
+
+
+/**
+ *  Helper macro for pop back data of certain type
+ *  
+ *  args:
+ *      list: pointer to List
+ *      type:  type of poped value
+ *  
+ *  return: (type)value
+ */
+#define List_pop_back_typed(list, type) {(     \
+        *( (type*)List_pop_back(list) )        \
+    )}                                         \
+
+
+/**
  *  Alloc momery for List pointer and return it 
  *  
  *  return: (List*)list 
@@ -139,6 +168,29 @@ void List_push_front(List* list, void* value);
  *  return: (void*) pointer to poped value
  */
 void* List_pop_front(List* list);
+
+
+/**
+ *  Push value to tail of the list 
+ *
+ *  args:
+ *      list: poiner to List
+ *      value: poiner pushed value
+ *  
+ *  return: void
+ */
+void List_push_back(List* list, void* value);
+
+
+/**
+ *  Pop front value from tail of the list 
+ *
+ *  args:
+ *      list: poiner to List
+ *  
+ *  return: (void*) pointer to poped value
+ */
+void* List_pop_back(List* list);
 
 
 /**

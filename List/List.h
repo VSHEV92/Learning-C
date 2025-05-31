@@ -69,9 +69,9 @@ typedef int (*List_comparer)(void* lhs, void* rhs);
 /**
  *  Helper macro for check compare when comparer is NULL error
  */
-#define LIST_COMPARER_ERR {                         \
-    fprintf( stderr, "Print with NULL comparer" );  \
-    exit(1);                                        \
+#define LIST_COMPARER_ERR {                           \
+    fprintf( stderr, "Compare with NULL comparer" );  \
+    exit(1);                                          \
 }
 
 

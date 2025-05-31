@@ -65,6 +65,21 @@ typedef void (*Dict_printer)(void* value);
 
 
 /**
+ *  Helper macro for get data of certain type
+ *  
+ *  args:
+ *      dict: pointer to Dict
+ *      key: key for the value
+ *      type:  type of value
+ *  
+ *  return: (type)value
+ */
+#define Dict_get_typed(dict, key, type) {(     \
+        *( (type*)Dict_get(dict, key) )        \
+    )}                                         \
+
+
+/**
  *  Get hash value from key 
  *  
  *  args:

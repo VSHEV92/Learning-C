@@ -13,7 +13,7 @@ size_t Dict_get_hash(char* key, size_t max_hash_value) {
 
 
 int Dict_key_comparer(void* lhs, void* rhs){
-    return strcmp( (char*)lhs, (char*)rhs );
+    return strcmp( ( (Dict_node*)lhs )->key, (char*)rhs );
 }
 
 
@@ -43,15 +43,22 @@ Dict* Dict_create(size_t max_hash_value) {
 
 void Dict_clean(Dict* dict) {
     for (size_t i = 0; i < dict->max_hash; i++) {
-        if(dict->nodes[i] != NULL) {
-            List_delete(dict->nodes[i]);
+        for (size_t j = 0; dict->nodes[i]->size; j++) {
+            Dict_node* node = List_pop_front(dict->nodes[i]);
+            free(node);
         }
     }
+    dict->size = 0;
 }
 
 
 void Dict_delete(Dict* dict) {
     Dict_clean(dict);
+
+    for (size_t i = 0; i < dict->max_hash; i++) {
+        List_delete(dict->nodes[i]);
+    }
+
     free(dict->nodes);
     free(dict);
 }
@@ -63,7 +70,12 @@ size_t Dict_get_size(Dict* dict) {
 
 
 bool Dict_key_exist(Dict* dict, char* key) {
-    return 0;
+    size_t hash = Dict_get_hash(key, dict->max_hash);
+    List* hash_list = dict->nodes[hash];
+
+    ssize_t key_index = List_get_index_by_value(hash_list, key);
+
+    return (key_index == -1) ? 0 : 1;
 }
 
 
@@ -95,7 +107,17 @@ void Dict_set(Dict* dict, char* key, void* value) {
 
 
 void* Dict_get(Dict* dict, char* key) {
-    return NULL;
+    size_t hash = Dict_get_hash(key, dict->max_hash);
+    List* hash_list = dict->nodes[hash];
+
+    ssize_t key_index = List_get_index_by_value(hash_list, key);
+
+    if (key_index == -1) {
+        DICT_KEY_ERR;
+    }
+
+    Dict_node* dict_node = List_get_value_by_index(hash_list, key_index);
+    return dict_node->value;
 }
 
 

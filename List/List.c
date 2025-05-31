@@ -10,6 +10,7 @@ List* List_create() {
 
     list->size = 0;
     list->printer = NULL;
+    list->comparer = NULL;
     list->head = NULL;
     list->tail = NULL;
 
@@ -155,6 +156,41 @@ void* List_get_value_by_index(List* list, size_t index) {
 }
 
 
+void List_set_value_by_index(List* list, size_t index, void* value) {
+    if (index >= list->size){
+        LIST_INDEX_ERR;
+    }
+
+    List_node* node = list->head;
+
+    for (size_t i = 0; i < index; i++) {
+        node = node->next;
+    }
+
+    node->value = value;
+}
+
+
+ssize_t List_get_index_by_value(List* list, void* value) {
+    if (list->comparer == NULL){
+        LIST_COMPARER_ERR;
+    }
+
+    List_comparer comparer = (List_comparer)list->comparer;
+    List_node* node = list->head;
+
+    for (size_t i = 0; i < list->size; i++) {
+        int result = comparer(node->value, value);
+        if (result == 0) {
+            return i;
+        }
+        node = node->next;
+    }
+
+    return -1;
+}
+
+
 void List_set_printer(List* list, List_printer printer) {
     list->printer = printer;
 }
@@ -171,4 +207,9 @@ void List_print(List* list) {
         void* value = List_get_value_by_index(list, i);
         printer(value);
     }
+}
+
+
+void List_set_comparer(List* list, List_comparer comparer) {
+    list->comparer = comparer;
 }

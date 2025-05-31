@@ -21,15 +21,22 @@ typedef struct List_node {
 typedef struct {
     size_t size;         // number of list nodes, list size
     void* printer;       // pointer to function, that can print list node value 
+    void* comparer;      // pointer to function, that can compare list nodes values
     List_node* head;     // pointer to head of the list
     List_node* tail;     // pointer to tail of the list
 } List;
 
 
 /**
- *  Type of function, that can print stack node value 
+ *  Type of function, that can print list node value 
  */
 typedef void (*List_printer)(void* value);
+
+
+/**
+ *  Type of function, that can comparer list node values 
+ */
+typedef int (*List_comparer)(void* lhs, void* rhs);
 
 
 /**
@@ -55,6 +62,15 @@ typedef void (*List_printer)(void* value);
  */
 #define LIST_PRINTER_ERR {                          \
     fprintf( stderr, "Print with NULL printer" );   \
+    exit(1);                                        \
+}
+
+
+/**
+ *  Helper macro for check compare when comparer is NULL error
+ */
+#define LIST_COMPARER_ERR {                         \
+    fprintf( stderr, "Print with NULL comparer" );  \
     exit(1);                                        \
 }
 
@@ -132,12 +148,43 @@ typedef void (*List_printer)(void* value);
  *  args:
  *      list: pointer to List
  *      index: index in list
- *      type:  type of poped value
+ *      type:  type of value
  *  
  *  return: (type)value
  */
-#define List_get_value_by_index_typed(list, index, type) {(           \
+#define List_get_value_by_index_typed(list, index, type) {( \
         *( (type*)List_get_value_by_index(list, index) )    \
+    )}                                                      \
+
+
+/**
+ *  Helper macro for set data by index of certain type
+ *  
+ *  args:
+ *      list: pointer to List
+ *      index: index in list
+ *      value: value to set
+ *      type:  type of value
+ *  
+ *  return: (type)value
+ */
+#define List_set_value_by_index_typed(list, index, value, type) {     \
+        List_set_value_by_index(list, index, &value);                 \
+    }                                                                 \
+
+
+/**
+ *  Helper macro for get index by value of certain type
+ *  
+ *  args:
+ *      list: pointer to List
+ *      value: value in list
+ *      type:  type of value value
+ *  
+ *  return: ssize_t. Index if value in list, -1 otherwise
+ */
+#define List_get_index_by_value_typed(list, value, type) {( \
+        List_get_index_by_value(list, &value)               \
     )}                                                      \
 
 
@@ -241,11 +288,36 @@ void* List_get_value_by_index(List* list, size_t index);
 
 
 /**
+ *  Set value by index in list  
+ *
+ *  args:
+ *      list: poiner to List
+ *      index: index in list
+ *      value: value to set
+ *  
+ *  return: void
+ */
+void List_set_value_by_index(List* list, size_t index, void* value);
+
+
+/**
+ *  Get index by value in list  
+ *
+ *  args:
+ *      list: poiner to List
+ *      value: value in list
+ *  
+ *  return: (ssize_t) Index if value in list, -1 otherwise 
+ */
+ssize_t List_get_index_by_value(List* list, void* value);
+
+
+/**
  *  Set function, that can print list node value 
  *
  *  args:
  *      list: poiner to List
- *      printer: poiner to function, that can print lsit node value
+ *      printer: poiner to function, that can print list node value
  *  
  *  return: void
  */
@@ -261,6 +333,22 @@ void List_set_printer(List* list, List_printer printer);
  *  return: void
  */
 void List_print(List* list);
+
+
+/**
+ *  Set function, that can compare list node values
+ *  Return in value:
+ *      lhs > rhs - return > 0
+ *      lhs < rhs - return < 0
+ *      lhs = rhs - return = 0
+ *
+ *  args:
+ *      list: poiner to List
+ *      printer: poiner to function, that can compare list nodes values
+ *  
+ *  return: int. 
+ */
+void List_set_comparer(List* list, List_comparer comparer);
 
 
 #endif

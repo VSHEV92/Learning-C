@@ -7,6 +7,10 @@ test_func_t tests[] = {
 
     list_push_back_clean_int_test,
     list_push_front_clean_int_test,
+
+    list_push_front_get_by_index_int_test,
+    list_push_front_set_by_index_int_test,
+    list_push_front_get_by_value_int_test,
 };
 
 int main() {

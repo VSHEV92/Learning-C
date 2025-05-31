@@ -19,4 +19,8 @@ void list_push_back_pop_front_int_test();
 void list_push_back_clean_int_test();
 void list_push_front_clean_int_test();
 
+void list_push_front_get_by_index_int_test();
+void list_push_front_set_by_index_int_test();
+void list_push_front_get_by_value_int_test();
+
 #endif

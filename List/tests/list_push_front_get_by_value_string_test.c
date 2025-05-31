@@ -1,20 +1,20 @@
 #include "tests.h"
-
-static void printer_int(void* value){
-    printf("%d ", *( (int*)value ));
+ 
+static void printer_string(void* value){
+    printf("%s ", *( (char**)value ));
 }
 
-static int comparer_int(void* lhs, void* rhs){
-    return *( (int*)lhs ) - *( (int*)rhs );
+static int comparer_string(void* lhs, void* rhs){
+    return strcmp( (char*)lhs, (char*)rhs );
 }
 
-void list_push_front_get_by_value_int_test() {
+void list_push_front_get_by_value_string_test() {
     puts("");
     puts("-----------------------------------------------------");
-    puts("TEST: Push front, then get indexs by value, then clean for list of integers\n");
+    puts("TEST: Push front, then get indexs by value, then clean for list of strings\n");
 
-    int array[] = {1, 2, 3, 4, 5, 6, 7};
-    size_t array_size = sizeof(array)/sizeof(int);
+    char* array[] = {"foo", "bar", "pupa", "lupa"};
+    size_t array_size = sizeof(array)/sizeof(char*);
 
     size_t list_size;
 
@@ -27,8 +27,8 @@ void list_push_front_get_by_value_int_test() {
     
     puts("Push front data to list");
     for (size_t i = 0; i < array_size; i++){
-        printf("%lu: %d\n", i, array[i]);
-        List_push_front_typed(list, array[i], int);
+        printf("%lu: %s\n", i, array[i]);
+        List_push_front_typed(list, array[i], char*);
     }
     puts("");
 
@@ -40,21 +40,21 @@ void list_push_front_get_by_value_int_test() {
 
 
     puts("Print list");
-    List_set_printer(list, printer_int);
+    List_set_printer(list, printer_string);
     List_print(list);
     puts("\n");
 
 
     puts("Get list index by value");
-    List_set_comparer(list, comparer_int);
+    List_set_comparer(list, comparer_string);
     for (size_t i = 0; i < array_size; i++){
-        ssize_t temp = List_get_index_by_value_typed(list, array[i], int);
+        ssize_t temp = List_get_index_by_value_typed(list, array[i], char*);
         printf("%lu: %ld\n", i, temp);
         assert(temp == array_size - 1 - i);
     }
     
-    int value = -1;
-    ssize_t temp = List_get_index_by_value_typed(list, value, int);
+    char* value = "foobar";
+    ssize_t temp = List_get_index_by_value_typed(list, value, char*);
     printf("%d: %ld\n", -1, temp);
     assert(temp == -1);
     

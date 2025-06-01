@@ -1,18 +1,18 @@
 #include "tests.h"
 
-static void printer_int(void* node){
+static void printer_string(void* node){
     Dict_node* dict_node = (Dict_node*) node;
-    printf("%s -> %d, ", dict_node->key, *((int*)dict_node->value) );
+    printf("%s -> %s, ", dict_node->key, *( (char**)(dict_node->value) ) );
 }
 
-void dict_set_delete_int_test() {
+void dict_set_get_string_test() {
     puts("");
     puts("-----------------------------------------------------");
-    puts("TEST: Set and delete, then check that key exists in dict of integers\n");
+    puts("TEST: Set and then get value to dict of strings\n");
 
     size_t max_hash_size = 5;
 
-    int value_array[] = {1, 2, 3, 4, 5, 6, 7};
+    char* value_array[] = {"a", "b", "c", "d", "e", "f", "end"};
     char* key_array[] = {"foo", "bar", "pupa", "luma", "one", "two", "loo"};
     size_t input_size = sizeof(key_array)/sizeof(char*);
 
@@ -26,14 +26,14 @@ void dict_set_delete_int_test() {
 
 
     puts("Set dictionary printer");
-    Dict_set_printer(dict, printer_int);
+    Dict_set_printer(dict, printer_string);
     puts("");
     
 
     puts("Set key/value pairs");
     for (size_t i = 0; i < input_size; i++){
-        printf("%s: %d\n", key_array[i], value_array[i]);
-        Dict_set_typed(dict, key_array[i], value_array[i], int);
+        printf("%s: %s\n", key_array[i], value_array[i]);
+        Dict_set_typed(dict, key_array[i], value_array[i], char*);
     }
     puts("");
 
@@ -49,17 +49,18 @@ void dict_set_delete_int_test() {
     puts("\n");
     
 
-    puts("Delete and check that key exists");
+    puts("Get key/value pairs");
     for (size_t i = 0; i < input_size; i++){
-        Dict_delete_node(dict, key_array[i]);
-
-        bool temp = Dict_key_exist(dict, key_array[i]);
-        printf("%s: %d\n", key_array[i], temp);
-        assert(temp == 0);
-
-        size_t size = Dict_get_size(dict);
-        assert(size == input_size - 1 - i);
+        char* temp = Dict_get_typed(dict, key_array[i], char*);
+        printf("%s: %s\n", key_array[i], temp);
+        assert( strcmp(temp, value_array[i]) == 0 );
     }
+    puts("");
+
+    
+    dict_size = Dict_get_size(dict);
+    printf("Dict size: %lu\n", dict_size);
+    assert(dict_size == input_size);
     puts("");
 
 

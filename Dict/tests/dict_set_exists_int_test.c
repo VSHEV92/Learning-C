@@ -33,7 +33,7 @@ void dict_set_exists_int_test() {
     puts("Set key/value pairs");
     for (size_t i = 0; i < input_size; i++){
         printf("%s: %d\n", key_array[i], value_array[i]);
-        Dict_set_typed(dict, key_array[i], value_array[i], char*);
+        Dict_set_typed(dict, key_array[i], value_array[i], int);
     }
     puts("");
 

@@ -17,4 +17,9 @@ void dict_set_clean_int_test();
 void dict_set_exists_int_test();
 void dict_set_delete_int_test();
 
+void dict_set_get_string_test();
+void dict_set_clean_string_test();
+void dict_set_exists_string_test();
+void dict_set_delete_string_test();
+
 #endif

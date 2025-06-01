@@ -5,6 +5,11 @@ test_func_t tests[] = {
     dict_set_clean_int_test,
     dict_set_exists_int_test,
     dict_set_delete_int_test,
+
+    dict_set_get_string_test,
+    dict_set_clean_string_test,
+    dict_set_exists_string_test,
+    dict_set_delete_string_test,
 };
 
 int main() {

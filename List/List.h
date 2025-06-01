@@ -288,6 +288,18 @@ void* List_get_value_by_index(List* list, size_t index);
 
 
 /**
+ *  Delete value by index in list  
+ *
+ *  args:
+ *      list: poiner to List
+ *      index: index in list
+ *  
+ *  return: void
+ */
+void List_delete_value_by_index(List* list, size_t index);
+
+
+/**
  *  Set value by index in list  
  *
  *  args:

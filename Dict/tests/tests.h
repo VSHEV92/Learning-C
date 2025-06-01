@@ -13,5 +13,7 @@ typedef void (*test_func_t)(void);
 
 // tests
 void dict_set_get_int_test();
+void dict_set_clean_int_test();
+void dict_set_exists_int_test();
 
 #endif

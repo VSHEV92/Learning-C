@@ -156,6 +156,39 @@ void* List_get_value_by_index(List* list, size_t index) {
 }
 
 
+void List_delete_value_by_index(List* list, size_t index) {
+    if (index >= list->size){
+        LIST_INDEX_ERR;
+    }
+
+    List_node* node = list->head;
+
+    for (size_t i = 0; i < index; i++) {
+        node = node->next;
+    }
+
+    if (index == 0 && index == list->size - 1) {
+        list->head = NULL;
+        list->tail = NULL;
+    }
+    else if (index == 0) {
+        list->head = node->next;
+        node->next->prev = NULL;
+    }
+    else if (index == list->size - 1) {
+        list->tail = node->prev;
+        node->prev->next = NULL;
+    } 
+    else {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+    }
+
+    free(node);
+    list->size--;
+}
+
+
 void List_set_value_by_index(List* list, size_t index, void* value) {
     if (index >= list->size){
         LIST_INDEX_ERR;

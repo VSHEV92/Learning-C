@@ -120,6 +120,7 @@ void* Dict_get(Dict* dict, char* key) {
     return dict_node->value;
 }
 
+
 void Dict_delete_node(Dict* dict, char* key) {
     size_t hash = Dict_get_hash(key, dict->max_hash);
     List* hash_list = dict->nodes[hash];
@@ -137,6 +138,24 @@ void Dict_delete_node(Dict* dict, char* key) {
 
     dict->size--;
 }
+
+
+List* Dict_get_keys(Dict* dict) {
+    List* keys = List_create();
+
+    for (size_t i = 0; i < dict->max_hash; i++){
+        List* hash_list = dict->nodes[i];
+        List_node* list_node = hash_list->head;
+        
+        while(list_node) {
+            List_push_back_typed(keys, ( (Dict_node*)(list_node->value) )->key, char*);
+            list_node = list_node->next;
+        }
+    }
+
+    return keys;
+}
+
 
 void Dict_set_printer(Dict* dict, Dict_printer printer) {
     for (size_t i = 0; i < dict->max_hash; i++) {

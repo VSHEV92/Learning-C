@@ -22,4 +22,5 @@ void dict_set_clean_string_test();
 void dict_set_exists_string_test();
 void dict_set_delete_string_test();
 
+void dict_set_get_keys_int_test();
 #endif

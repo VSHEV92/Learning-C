@@ -196,6 +196,17 @@ void Dict_delete_node(Dict* dict, char* key);
 
 
 /**
+ *  Get a List of exits keys
+ *
+ *  args:
+ *      dict: poiner to Dict
+ *  
+ *  return: (List*) keys
+ */
+List* Dict_get_keys(Dict* dict);
+
+
+/**
  *  Set function, that can print dictionary node
  *
  *  args:

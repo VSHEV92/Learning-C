@@ -10,6 +10,8 @@ test_func_t tests[] = {
     dict_set_clean_string_test,
     dict_set_exists_string_test,
     dict_set_delete_string_test,
+
+    dict_set_get_keys_int_test,
 };
 
 int main() {

@@ -4,6 +4,7 @@ test_func_t tests[] = {
     dict_set_get_int_test,
     dict_set_clean_int_test,
     dict_set_exists_int_test,
+    dict_set_delete_int_test,
 };
 
 int main() {

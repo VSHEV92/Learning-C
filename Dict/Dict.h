@@ -184,6 +184,18 @@ void* Dict_get(Dict* dict, char* key);
 
 
 /**
+ *  Delete key/value pair
+ *
+ *  args:
+ *      dict: poiner to Dict
+ *      key: key for the value
+ *  
+ *  return: void
+ */
+void Dict_delete_node(Dict* dict, char* key);
+
+
+/**
  *  Set function, that can print dictionary node
  *
  *  args:

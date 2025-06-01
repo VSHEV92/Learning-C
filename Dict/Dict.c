@@ -120,6 +120,23 @@ void* Dict_get(Dict* dict, char* key) {
     return dict_node->value;
 }
 
+void Dict_delete_node(Dict* dict, char* key) {
+    size_t hash = Dict_get_hash(key, dict->max_hash);
+    List* hash_list = dict->nodes[hash];
+
+    ssize_t key_index = List_get_index_by_value(hash_list, key);
+
+    if (key_index == -1) {
+        DICT_KEY_ERR;
+    }
+
+    Dict_node* dict_node = List_get_value_by_index(hash_list, key_index);
+    free(dict_node);
+
+    List_delete_value_by_index(hash_list, key_index);
+
+    dict->size--;
+}
 
 void Dict_set_printer(Dict* dict, Dict_printer printer) {
     for (size_t i = 0; i < dict->max_hash; i++) {

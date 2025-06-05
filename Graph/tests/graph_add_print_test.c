@@ -6,6 +6,7 @@ void graph_add_print_test() {
     puts("TEST: Add nodes to graph and print nodes\n");
     
     size_t graph_size;
+    Graph_node* graph_node;
     
     puts("Create graph");
     Graph* graph = Graph_create();
@@ -17,6 +18,8 @@ void graph_add_print_test() {
     graph_fill(graph);
     puts("");
 
+    graph_node = Graph_get_node(graph, "A");
+    Graph_node_print(graph_node);
 
 
     puts("Clean graph");

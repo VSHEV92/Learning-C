@@ -81,6 +81,30 @@ void Graph_delete(Graph* graph);
 
 
 /**
+ *  Add graph node to graph   
+ *
+ *  args:
+ *      graph: poiner to Graph
+ *      graph_node: poiner to Graph node
+ *  
+ *  return: void
+ */
+void Graph_add_node(Graph* graph, Graph_node* graph_node);
+
+
+/**
+ *  Get graph node from graph   
+ *
+ *  args:
+ *      graph: poiner to Graph
+ *      node_name: graph node name
+ *  
+ *  return: (Graph_node*)graph_node
+ */
+Graph_node* Graph_get_node(Graph* graph, char* node_name);
+
+
+/**
  *  Get number of graph nodes  
  *
  *  args:

@@ -1,14 +1,14 @@
 #include "tests.h"
 
 // helper macro to fill node siblings
-#define GRAPH_TEST_FILL_NODE(node_name) \
+#define GRAPH_TEST_FILL_NODE(graph, node_name) \
 {\
     Graph_node* graph_node = Graph_node_create(#node_name); \
     size_t siblings_number = sizeof(node_name ## _node_sibling_names)/sizeof(char*); \
     for (size_t i = 0; i < siblings_number; i++) { \
         Graph_node_add_sibling(graph_node, node_name ## _node_sibling_names[i], &node_name ## _node_sibling_dist[i]); \
     }\
-    Graph_node_print(graph_node); \
+    Graph_add_node(graph, graph_node); \
     Graph_node_delete(graph_node); \
 }
 
@@ -40,13 +40,13 @@ int H_node_sibling_dist[] = {2};
 
 void graph_fill(Graph* graph) {
 
-    GRAPH_TEST_FILL_NODE(A);
-    GRAPH_TEST_FILL_NODE(B);
-    GRAPH_TEST_FILL_NODE(C);
-    GRAPH_TEST_FILL_NODE(D);
-    GRAPH_TEST_FILL_NODE(E);
-    GRAPH_TEST_FILL_NODE(F);
-    GRAPH_TEST_FILL_NODE(G);
-    GRAPH_TEST_FILL_NODE(H);
+    GRAPH_TEST_FILL_NODE(graph, A);
+    GRAPH_TEST_FILL_NODE(graph, B);
+    GRAPH_TEST_FILL_NODE(graph, C);
+    GRAPH_TEST_FILL_NODE(graph, D);
+    GRAPH_TEST_FILL_NODE(graph, E);
+    GRAPH_TEST_FILL_NODE(graph, F);
+    GRAPH_TEST_FILL_NODE(graph, G);
+    GRAPH_TEST_FILL_NODE(graph, H);
 
 }

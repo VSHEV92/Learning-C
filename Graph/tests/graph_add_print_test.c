@@ -13,6 +13,11 @@ void graph_add_print_test() {
     puts("");
 
 
+    puts("Fill graph");
+    graph_fill(graph);
+    puts("");
+
+
 
     puts("Clean graph");
     Graph_clean(graph);

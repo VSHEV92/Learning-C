@@ -31,6 +31,7 @@ typedef struct {
 #define GRAPH_DICT_MAX_HASH 5
 #endif
 
+
 /**
  *  Helper macro for check malloc errors
  */
@@ -47,8 +48,6 @@ typedef struct {
     fprintf( stderr, "Node name is not exists" );   \
     exit(1);                                        \
 }
-
-
 
 
 /**
@@ -92,5 +91,52 @@ void Graph_delete(Graph* graph);
 size_t Graph_get_size(Graph* graph);
 
 
+/**
+ *  Alloc momery for Graph node pointer and return it 
+ *
+ *  args:
+ *      name: Graph node name
+ *
+ *  return: (Graph_node*)graph_node 
+ */
+Graph_node* Graph_node_create(char* name);
+
+
+
+/**
+ *  Clean graph node siblings, then free graph node pointer memory   
+ *
+ *  args:
+ *      graph_node: poiner to Graph node
+ *  
+ *  return: void
+ */
+void Graph_node_delete(Graph_node* graph_node);
+
+
+
+/**
+ *  Add sibling to graph node   
+ *
+ *  args:
+ *      graph_node: poiner to Graph node
+ *      sibling_name: name of sibling node
+ *      sibling_distance: distance to sibling node
+ *  
+ *  return: void
+ */
+void Graph_node_add_sibling(Graph_node* graph_node, char* sibling_name, int* sibling_distance);
+
+
+
+/**
+ *  Print graph node (for DEBUG only)
+ *
+ *  args:
+ *      graph_node: poiner to Graph_node
+ *  
+ *  return: void
+ */
+void Graph_node_print(Graph_node* graph_node);
 
 #endif

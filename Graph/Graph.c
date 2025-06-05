@@ -45,8 +45,38 @@ void Graph_delete(Graph* graph) {
 }
 
 
+void Graph_add_node(Graph* graph, Graph_node* graph_node) {
+    Dict** distances_ptr = malloc( sizeof(Dict*) );
+    *distances_ptr = Dict_create(GRAPH_DICT_MAX_HASH);
+
+    Graph_copy_distances(*distances_ptr, graph_node->distances);
+    
+    Dict_set_typed(graph->nodes, graph_node->name, *distances_ptr, Dict*);
+    graph->size++;
+}
+
+
+Graph_node* Graph_get_node(Graph* graph, char* node_name) {
+    if ( !Dict_key_exist(graph->nodes, node_name) ) {
+        GRAPH_NODE_NAME_ERR;
+    }
+
+    Dict* distances = Dict_get_typed(graph->nodes, node_name, Dict*);
+
+    Graph_node* graph_node = Graph_node_create(node_name);
+
+    Graph_copy_distances(graph_node->distances, distances);
+
+    return graph_node;
+}
+
+
 size_t Graph_get_size(Graph* graph) {
     return graph->size;
+}
+
+List* Graph_get_node_names(Graph* graph) {
+    return Dict_get_keys(graph->nodes);
 }
 
 
@@ -72,37 +102,34 @@ void Graph_node_delete(Graph_node* graph_node) {
 }
 
 
-void Graph_add_node(Graph* graph, Graph_node* graph_node) {
-    Dict* distances = Dict_create(GRAPH_DICT_MAX_HASH);
-
-    Graph_copy_distances(distances, graph_node->distances);
-    
-    Dict_set_typed(graph->nodes, graph_node->name, distances, Dict*);
-    graph->size++;
-}
-
-
-Graph_node* Graph_get_node(Graph* graph, char* node_name) {
-    if ( !Dict_key_exist(graph->nodes, node_name) ) {
-        GRAPH_NODE_NAME_ERR;
-    }
-
-    Dict* distances = Dict_get_typed(graph->nodes, node_name, Dict*);
-    Graph_node* graph_node = Graph_node_create(node_name);
-
-    Graph_copy_distances(graph_node->distances, distances);
-
-    return graph_node;
-}
-
-
 void Graph_node_add_sibling(Graph_node* graph_node, char* sibling_name, int* sibling_distance) {
     Dict_set(graph_node->distances, sibling_name, sibling_distance);
 }
 
 
+void Graph_print(Graph* graph) {
+    List* node_names = Graph_get_node_names(graph);
+    size_t names_number = List_get_size(node_names);
+
+    for (size_t i = 0; i < names_number; i++) {
+        char* name = List_pop_front_typed(node_names, char*);
+        Graph_node* node = Graph_get_node(graph, name);
+        Graph_node_print(node);
+        Graph_node_delete(node);
+    }
+    puts("");
+}
+
+
 void Graph_node_print(Graph_node* graph_node) {
-    printf("\nNode name: %s\n", graph_node->name);
-    Dict_print(graph_node->distances);
+    printf("Node %s: ", graph_node->name);
+    List* sibling_names = Dict_get_keys(graph_node->distances);
+    size_t names_number = List_get_size(sibling_names);
+
+    for (size_t i = 0; i < names_number; i++) {
+        char* name = List_pop_front_typed(sibling_names, char*);
+        int distance = Dict_get_typed(graph_node->distances, name, int);
+        printf("%s -> %d, ", name, distance);
+    }
     puts("");
 }

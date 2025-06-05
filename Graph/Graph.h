@@ -3,6 +3,7 @@
 
 #include <Graph.h>
 #include <Dict.h>
+#include <List.h>
 #include <string.h>
 #include <stdbool.h>
 
@@ -116,6 +117,17 @@ size_t Graph_get_size(Graph* graph);
 
 
 /**
+ *  Get a List of exits node names
+ *
+ *  args:
+ *      graph: poiner to Graph
+ *  
+ *  return: (List*) node_names
+ */
+List* Graph_get_node_names(Graph* graph);
+
+
+/**
  *  Alloc momery for Graph node pointer and return it 
  *
  *  args:
@@ -151,6 +163,16 @@ void Graph_node_delete(Graph_node* graph_node);
  */
 void Graph_node_add_sibling(Graph_node* graph_node, char* sibling_name, int* sibling_distance);
 
+
+/**
+ *  Print graph (for DEBUG only)
+ *
+ *  args:
+ *      graph: poiner to Graph
+ *  
+ *  return: void
+ */
+void Graph_print(Graph* graph);
 
 
 /**

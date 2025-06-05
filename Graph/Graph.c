@@ -16,6 +16,7 @@ static void Graph_copy_distances(Dict* dict_to, Dict* dict_from) {
 
         Dict_set(dict_to, sibling_name, sibling_distance);
     }
+    List_delete(node_siblings);
 }
 
 Graph* Graph_create() {
@@ -33,13 +34,23 @@ Graph* Graph_create() {
 
 
 void Graph_clean(Graph* graph) {
+    List* node_names = Graph_get_node_names(graph);
+
+    for (size_t i = 0; i < graph->size; i++) {
+        char* name = List_pop_front_typed(node_names, char*);
+        Dict** distances = Dict_get(graph->nodes, name);
+        Dict_delete(*distances);
+        free(distances);
+    }
+    List_delete(node_names);
+
     graph->size = 0;
-    // TODO: delete sub dictionaries
     Dict_clean(graph->nodes);
 }
 
 
 void Graph_delete(Graph* graph) {
+    Graph_clean(graph);
     Dict_delete(graph->nodes);
     free(graph);
 }
@@ -118,6 +129,8 @@ void Graph_print(Graph* graph) {
         Graph_node_delete(node);
     }
     puts("");
+
+    List_delete(node_names);
 }
 
 
@@ -132,4 +145,6 @@ void Graph_node_print(Graph_node* graph_node) {
         printf("%s -> %d, ", name, distance);
     }
     puts("");
+    
+    List_delete(sibling_names);
 }

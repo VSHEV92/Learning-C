@@ -24,6 +24,12 @@ typedef struct {
 } Graph;
 
 
+/**
+ *  Max hash value for internal dictionaries
+ */
+#ifndef GRAPH_DICT_MAX_HASH
+#define GRAPH_DICT_MAX_HASH 5
+#endif
 
 /**
  *  Helper macro for check malloc errors

@@ -1,12 +1,11 @@
 #include "tests.h"
 
-void graph_add_print_test() {
+void graph_fill_print_test() {
     puts("");
     puts("-----------------------------------------------------");
-    puts("TEST: Add nodes to graph and print nodes\n");
+    puts("TEST: Fill nodes to graph and print nodes\n");
     
     size_t graph_size;
-//    Graph_node* graph_node;
     
     puts("Create graph");
     Graph* graph = Graph_create();

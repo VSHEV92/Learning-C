@@ -138,7 +138,6 @@ List* Graph_get_node_names(Graph* graph);
 Graph_node* Graph_node_create(char* name);
 
 
-
 /**
  *  Clean graph node siblings, then free graph node pointer memory   
  *
@@ -149,6 +148,16 @@ Graph_node* Graph_node_create(char* name);
  */
 void Graph_node_delete(Graph_node* graph_node);
 
+
+/**
+ *  Get graph node name  
+ *
+ *  args:
+ *      graph_node: poiner to Graph node
+ *  
+ *  return: (char*) graph node name
+ */
+char* Graph_node_get_name(Graph_node* graph_node);
 
 
 /**
@@ -162,6 +171,29 @@ void Graph_node_delete(Graph_node* graph_node);
  *  return: void
  */
 void Graph_node_add_sibling(Graph_node* graph_node, char* sibling_name, int* sibling_distance);
+
+
+/**
+ *  Get siblings names
+ *
+ *  args:
+ *      graph_node: poiner to Graph node
+ *  
+ *  return: (List*) List of siblings names
+ */
+List* Graph_node_get_siblings(Graph_node* graph_node);
+
+
+/**
+ *  Get distance to sibling
+ *
+ *  args:
+ *      graph_node: poiner to Graph node
+ *      sibling_name: name of sibling node
+ *  
+ *  return: (int) distance to sibling
+ */
+int Graph_node_get_sibling_distance(Graph_node* graph_node, char* sibling_name);
 
 
 /**

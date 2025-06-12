@@ -113,8 +113,24 @@ void Graph_node_delete(Graph_node* graph_node) {
 }
 
 
+char* Graph_node_get_name(Graph_node* graph_node) {
+    return graph_node->name; 
+}
+
+
+List* Graph_node_get_siblings(Graph_node* graph_node) {
+    return Dict_get_keys(graph_node->distances);
+}
+
+
 void Graph_node_add_sibling(Graph_node* graph_node, char* sibling_name, int* sibling_distance) {
     Dict_set(graph_node->distances, sibling_name, sibling_distance);
+}
+
+
+int Graph_node_get_sibling_distance(Graph_node* graph_node, char* sibling_name) {
+    int distance = Dict_get_typed(graph_node->distances, sibling_name, int);
+    return distance;
 }
 
 

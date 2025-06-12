@@ -19,6 +19,7 @@ static void Graph_copy_distances(Dict* dict_to, Dict* dict_from) {
     List_delete(node_siblings);
 }
 
+
 Graph* Graph_create() {
     Graph* graph = malloc( sizeof(Graph) );
     
@@ -85,6 +86,7 @@ Graph_node* Graph_get_node(Graph* graph, char* node_name) {
 size_t Graph_get_size(Graph* graph) {
     return graph->size;
 }
+
 
 List* Graph_get_node_names(Graph* graph) {
     return Dict_get_keys(graph->nodes);

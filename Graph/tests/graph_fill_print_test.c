@@ -32,6 +32,5 @@ void graph_fill_print_test() {
     
     puts("Delete graph");
     Graph_delete(graph);
-    assert(graph != NULL);
     puts("");
 }

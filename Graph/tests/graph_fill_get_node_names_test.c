@@ -1,13 +1,5 @@
 #include "tests.h"
 
-static int comparer_string(void* lhs, void* rhs){
-    return strcmp( *( (char**)lhs ), *( (char**)rhs ));
-}
-
-static void printer_string(void* value){
-    printf("%s ", *( (char**)value ));
-}
-
 void graph_fill_get_node_names_test() {
     puts("");
     puts("-----------------------------------------------------");
@@ -35,16 +27,14 @@ void graph_fill_get_node_names_test() {
 
 
     puts("Print node names");
-    List_set_printer(node_names, printer_string);
-    List_set_comparer(node_names, comparer_string);
     List_print(node_names);
     puts("\n");
 
 
     puts("Check nodes names");
     for (size_t i = 0; i < nodes_number; i++) {
-        size_t idx = List_get_index_by_value_typed(node_names, nodes[i], char*);
-        assert(idx != -1);
+        bool temp = List_value_exists_typed(node_names, nodes[i], char*);
+        assert(temp == true);
     }
     List_delete(node_names);
     puts("");

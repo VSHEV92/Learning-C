@@ -1,5 +1,14 @@
 #include "Graph.h"
 
+ 
+static void node_names_printer(void* value){
+    printf("%s ", *( (char**)value ));
+}
+
+static int node_names_comparer(void* lhs, void* rhs){
+    return strcmp( *( (char**)lhs ), *( (char**)rhs ));
+}
+
 // printer function for Graph node siblings dictionary
 static void Graph_node_sibling_printer(void* node){
     Dict_node* dict_node = (Dict_node*) node;
@@ -89,7 +98,10 @@ size_t Graph_get_size(Graph* graph) {
 
 
 List* Graph_get_node_names(Graph* graph) {
-    return Dict_get_keys(graph->nodes);
+    List* list = Dict_get_keys(graph->nodes);
+    List_set_printer(list, node_names_printer);
+    List_set_comparer(list, node_names_comparer);
+    return list;
 }
 
 
@@ -121,7 +133,10 @@ char* Graph_node_get_name(Graph_node* graph_node) {
 
 
 List* Graph_node_get_siblings(Graph_node* graph_node) {
-    return Dict_get_keys(graph_node->distances);
+    List* list = Dict_get_keys(graph_node->distances);
+    List_set_printer(list, node_names_printer);
+    List_set_comparer(list, node_names_comparer);
+    return list;
 }
 
 

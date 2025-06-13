@@ -1,9 +1,5 @@
 #include "tests.h"
 
-static int comparer_string(void* lhs, void* rhs){
-    return strcmp( *( (char**)lhs ), *( (char**)rhs ));
-}
-
 void graph_add_get_test() {
     puts("");
     puts("-----------------------------------------------------");
@@ -46,10 +42,9 @@ void graph_add_get_test() {
 
     puts("Check siblings");
     List* siblings = Graph_node_get_siblings(graph_node);
-    List_set_comparer(siblings, comparer_string);
     for (size_t i = 0; i < siblings_number; i++) {
-        size_t idx = List_get_index_by_value_typed(siblings, siblings_names[i], char*);
-        assert(idx != -1);
+        bool temp = List_value_exists_typed(siblings, siblings_names[i], char*);
+        assert(temp == true);
     }
     List_delete(siblings);
     puts("");

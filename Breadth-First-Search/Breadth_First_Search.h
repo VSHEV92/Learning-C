@@ -5,6 +5,8 @@
 #include <List.h>
 #include <Dict.h>
 
+#define BFS_DICT_MAX_HASH_SIZE 5
+
 /**
  *  Breadth First Search algorithm 
  *

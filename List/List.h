@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 
 /**
@@ -189,6 +190,21 @@ typedef int (*List_comparer)(void* lhs, void* rhs);
 
 
 /**
+ *  Helper macro for check value of certain type in List
+ *  
+ *  args:
+ *      list: pointer to List
+ *      value: value in list
+ *      type:  type of value value
+ *  
+ *  return: bool. 1 if value in list, 0 otherwise
+ */
+#define List_value_exists_typed(list, value, type) {(       \
+        List_value_exists(list, &value)                     \
+    )}                                                      \
+
+
+/**
  *  Alloc momery for List pointer and return it 
  *  
  *  return: (List*)list 
@@ -322,6 +338,18 @@ void List_set_value_by_index(List* list, size_t index, void* value);
  *  return: (ssize_t) Index if value in list, -1 otherwise 
  */
 ssize_t List_get_index_by_value(List* list, void* value);
+
+
+/**
+ *  Check if value in list  
+ *
+ *  args:
+ *      list: poiner to List
+ *      value: value in list
+ *  
+ *  return: (bool) 1 if value in List, 0 otherwise 
+ */
+bool List_value_exists(List* list, void* value);
 
 
 /**

@@ -224,6 +224,12 @@ ssize_t List_get_index_by_value(List* list, void* value) {
 }
 
 
+bool List_value_exists(List* list, void* value) {
+    ssize_t index = List_get_index_by_value(list, value);
+    return (index == -1) ? false : true;
+}
+
+
 void List_set_printer(List* list, List_printer printer) {
     list->printer = printer;
 }

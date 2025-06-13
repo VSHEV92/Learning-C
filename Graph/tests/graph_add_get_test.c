@@ -1,7 +1,7 @@
 #include "tests.h"
 
 static int comparer_string(void* lhs, void* rhs){
-    return strcmp( (char*)lhs, (char*)rhs );
+    return strcmp( *( (char**)lhs ), *( (char**)rhs ));
 }
 
 void graph_add_get_test() {

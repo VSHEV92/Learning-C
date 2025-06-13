@@ -1,7 +1,7 @@
 #include "tests.h"
 
 static int comparer_string(void* lhs, void* rhs){
-    return strcmp( *( (char**)lhs ), *( (char**)lhs ));
+    return strcmp( *( (char**)lhs ), *( (char**)rhs ));
 }
 
 static void printer_string(void* value){

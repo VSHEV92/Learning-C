@@ -5,7 +5,7 @@ static void printer_string(void* value){
 }
 
 static int comparer_string(void* lhs, void* rhs){
-    return strcmp( (char*)lhs, (char*)rhs );
+    return strcmp( *( (char**)lhs ), *( (char**)rhs ));
 }
 
 void list_push_front_get_by_value_string_test() {

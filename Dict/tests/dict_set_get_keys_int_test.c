@@ -6,7 +6,7 @@ static void list_printer_string(void* value){
 }
 
 static int list_comparer_string(void* lhs, void* rhs){
-    return strcmp( (char*)lhs, (char*)rhs );
+    return strcmp( *( (char**)lhs ), *( (char**)rhs ));
 }
 
 static void printer_int(void* node){

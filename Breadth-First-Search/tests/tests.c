@@ -27,6 +27,7 @@ int main() {
         "--------------------\n"
     );
 
+    Graph_delete(graph);
 }
 
 void test_path(Graph* graph, char* from, char* to, int gold_distance) {
@@ -34,6 +35,7 @@ void test_path(Graph* graph, char* from, char* to, int gold_distance) {
     List** path = malloc( sizeof(List*) );
 
     result = Breadth_First_Search(graph, from, to, path);
+    
     printf("From: %s\n", from);
     printf("To: %s\n", to);
     printf("Distance: %d\n", result);
@@ -44,5 +46,10 @@ void test_path(Graph* graph, char* from, char* to, int gold_distance) {
         puts("");
     }
     puts("");
+    
     assert(result == gold_distance);
+    
+
+    bfs_delete_path(path);
+    free(path);
 }

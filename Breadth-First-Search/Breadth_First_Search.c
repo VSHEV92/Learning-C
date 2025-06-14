@@ -5,8 +5,7 @@ static int node_name_comparer(void* lhs, void* rhs);
 static void debug_list_printer(void* value);
 static void debug_dict_printer(void* node);
 
-static int bfs_create_path();
-
+static int bfs_create_path(Dict* from_to_node_names, char* from_node, char* to_node, List** path);
 
 
 int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** path) {
@@ -71,26 +70,30 @@ int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** p
 }
 
 
+void bfs_delete_path(List** path) {
+
+}
+
+
 // halper function, used to create path from start to destination node and calculate distance
+// we need to use malloc, so that pointer not destroyed after function return 
 static int bfs_create_path(Dict* from_to_node_names, char* from_node, char* to_node, List** path) {
-    int bfs_distance = -1;
+    int bfs_distance = 0;
     *path = List_create();
+    
+    // add distanation node to path    
+    char** current_node = malloc( sizeof(char*) );
+    *current_node = to_node;
+    List_push_front_typed(*path, *current_node, char*);
 
-    // move back through from/to dictionary to construct bfs path and count distance
-    char** path_node = malloc( sizeof(char*) );
-    *path_node = to_node;
-
-    char** current_node = &to_node;
-    List_push_front_typed(*path, *path_node, char*);
-
-    bfs_distance = 0;
+    // move backwared and add other nodes to path
     while( strcmp(*current_node, from_node) != 0 ) {
-        current_node = Dict_get(from_to_node_names, *current_node);
+        char** previous_node = Dict_get(from_to_node_names, *current_node);
         
-        char** path_node = malloc( sizeof(char*) );
-        *path_node = *current_node;
+        current_node = malloc( sizeof(char*) );
+        *current_node = *previous_node;
         
-        List_push_front_typed(*path, *path_node, char*);
+        List_push_front_typed(*path, *current_node, char*);
         bfs_distance++;
     }
 

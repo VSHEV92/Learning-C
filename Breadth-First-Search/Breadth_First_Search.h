@@ -20,4 +20,15 @@
  */
 int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** path);
 
+
+/**
+ *  Delete path lsit, created by Breadth First Search
+ *
+ *  args:
+ *      path: List of node names, that needed to visit to get from start node to destination node
+ *  
+ *  return: void
+ */
+void bfs_delete_path(List** path);
+
 #endif

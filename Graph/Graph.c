@@ -105,6 +105,16 @@ List* Graph_get_node_names(Graph* graph) {
 }
 
 
+List* Graph_get_node_siblings(Graph* graph, char* node_name) {
+    Dict* node_dict = Dict_get_typed(graph->nodes, node_name, Dict*);
+    List* siblings = Dict_get_keys(node_dict);
+    List_set_printer(siblings, node_names_printer);
+    List_set_comparer(siblings, node_names_comparer);
+    return siblings;
+
+}
+
+
 Graph_node* Graph_node_create(char* name) {
 
     Graph_node* graph_node = malloc( sizeof(Graph_node) );

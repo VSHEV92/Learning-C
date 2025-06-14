@@ -13,10 +13,12 @@ int main() {
     graph_fill(graph);
     Graph_print(graph);
 
-    puts("Test paths");
+    puts("---- Test paths from A node ----\n");
     test_path(graph, "A", "B", 1);
     test_path(graph, "A", "D", 2);
     test_path(graph, "A", "H", 4);
+    test_path(graph, "A", "I", -1);
+    puts("");
 
 
     puts(

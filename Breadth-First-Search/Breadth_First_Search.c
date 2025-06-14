@@ -1,18 +1,13 @@
 #include "Breadth_First_Search.h"
 
 
-static int node_name_comparer(void* lhs, void* rhs){
-    return strcmp( *( (char**)lhs ), *( (char**)rhs ));
-}
+static int node_name_comparer(void* lhs, void* rhs);
+static void debug_list_printer(void* value);
+static void debug_dict_printer(void* node);
 
-static void debug_list_printer(void* value){
-    printf("%s ", *( (char**)value ));
-}
+static int bfs_create_path();
 
-static void debug_dict_printer(void* node){
-    Dict_node* dict_node = (Dict_node*) node;
-    printf("%s -> %s, ", dict_node->key, *( (char**)(dict_node->value) ) );
-}
+
 
 int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** path) {
 
@@ -29,33 +24,14 @@ int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** p
     Dict* from_to_node_names = Dict_create(BFS_DICT_MAX_HASH_SIZE);
     Dict_set_printer(from_to_node_names, debug_dict_printer);
 
-    // BFS distance
-    int bfs_distance = -1;
-
     // distanation node is reached
     bool to_node_reached = false;
 
     // add start node to need to process list
     List_push_back_typed(nodes_needed_to_process, from_node, char*);
 
-//    int cnt = 0;
-
-
     // node process loop
     while ( List_get_size(nodes_needed_to_process) > 0 ) {
-    
- //       if (cnt > 10) {
- //           break;
- //       }
- //       cnt++;
-
- //       puts("Need to process: ");
- //       List_print(nodes_needed_to_process);
- //       puts("");
-
- //       puts("Already processed: ");
- //       List_print(nodes_already_processed);
- //       puts("");
         
         // get next node name and set it as processed
         char** processed_node = List_pop_front(nodes_needed_to_process);
@@ -68,8 +44,7 @@ int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** p
         }
 
         // add siblings nodes to need to process list
-        Graph_node* graph_node = Graph_get_node(graph, *processed_node);
-        List* siblings = Graph_node_get_siblings(graph_node);
+        List* siblings = Graph_get_node_siblings(graph, *processed_node);
         size_t siblings_number = List_get_size(siblings);
 
         for (size_t i = 0; i < siblings_number; i++) {
@@ -85,34 +60,55 @@ int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** p
         }
     }
 
-    // prepare output results
-    if (to_node_reached) {
-        *path = List_create();
-
-        // move back through from/to dictionary to construct bfs path and count distance
-        char** path_node = malloc( sizeof(char*) );
-        *path_node = to_node;
-
-        char** current_node = &to_node;
-        List_push_front_typed(*path, *path_node, char*);
-
-        bfs_distance = 0;
-        while( strcmp(*current_node, from_node) != 0 ) {
-            current_node = Dict_get(from_to_node_names, *current_node);
-            
-            char** path_node = malloc( sizeof(char*) );
-            *path_node = *current_node;
-            
-            List_push_front_typed(*path, *path_node, char*);
-            bfs_distance++;
-        }
-
-        return bfs_distance;
-    }
-    else {
+    // if path to distination node not found, return from function
+    if (!to_node_reached) {
         *path = NULL;
-        return bfs_distance;
+        return -1;
     }
-    
-    return -1;
+
+    // create path from start to destination node and calculate distance
+    return bfs_create_path(from_to_node_names, from_node, to_node, path);
+}
+
+
+// halper function, used to create path from start to destination node and calculate distance
+static int bfs_create_path(Dict* from_to_node_names, char* from_node, char* to_node, List** path) {
+    int bfs_distance = -1;
+    *path = List_create();
+
+    // move back through from/to dictionary to construct bfs path and count distance
+    char** path_node = malloc( sizeof(char*) );
+    *path_node = to_node;
+
+    char** current_node = &to_node;
+    List_push_front_typed(*path, *path_node, char*);
+
+    bfs_distance = 0;
+    while( strcmp(*current_node, from_node) != 0 ) {
+        current_node = Dict_get(from_to_node_names, *current_node);
+        
+        char** path_node = malloc( sizeof(char*) );
+        *path_node = *current_node;
+        
+        List_push_front_typed(*path, *path_node, char*);
+        bfs_distance++;
+    }
+
+    return bfs_distance;
+}
+
+
+static int node_name_comparer(void* lhs, void* rhs){
+    return strcmp( *( (char**)lhs ), *( (char**)rhs ));
+}
+
+
+static void debug_list_printer(void* value){
+    printf("%s ", *( (char**)value ));
+}
+
+
+static void debug_dict_printer(void* node){
+    Dict_node* dict_node = (Dict_node*) node;
+    printf("%s -> %s, ", dict_node->key, *( (char**)(dict_node->value) ) );
 }

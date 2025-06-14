@@ -37,6 +37,8 @@ int G_node_sibling_dist[] = {4, 5};
 char* H_node_sibling_names[] = {"G"};
 int H_node_sibling_dist[] = {2};
 
+char* I_node_sibling_names[] = {"A"};
+int I_node_sibling_dist[] = {5};
 
 void graph_fill(Graph* graph) {
 
@@ -48,5 +50,6 @@ void graph_fill(Graph* graph) {
     GRAPH_TEST_FILL_NODE(graph, F);
     GRAPH_TEST_FILL_NODE(graph, G);
     GRAPH_TEST_FILL_NODE(graph, H);
+    GRAPH_TEST_FILL_NODE(graph, I);
 
 }

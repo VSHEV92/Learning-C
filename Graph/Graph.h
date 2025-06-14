@@ -106,6 +106,18 @@ Graph_node* Graph_get_node(Graph* graph, char* node_name);
 
 
 /**
+ *  Get siblings of graph node by it's name
+ *
+ *  args:
+ *      graph: poiner to Graph
+ *      node_name: graph node name
+ *  
+ *  return: (List*) List of siblings names
+ */
+List* Graph_get_node_siblings(Graph* graph, char* node_name);
+
+
+/**
  *  Get number of graph nodes  
  *
  *  args:

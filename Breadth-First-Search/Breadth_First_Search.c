@@ -57,21 +57,36 @@ int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** p
                 Dict_set_typed(from_to_node_names, *sibling_name, *processed_node, char*);
             }
         }
+
+        List_delete(siblings);
     }
+
+    // clean up proccess lists
+    List_delete(nodes_needed_to_process);
+    List_delete(nodes_already_processed);
 
     // if path to distination node not found, return from function
     if (!to_node_reached) {
+        Dict_delete(from_to_node_names);
         *path = NULL;
         return -1;
     }
-
-    // create path from start to destination node and calculate distance
-    return bfs_create_path(from_to_node_names, from_node, to_node, path);
+    // esle create path from start to destination node and calculate distance
+    else {
+        int distance = bfs_create_path(from_to_node_names, from_node, to_node, path);
+        Dict_delete(from_to_node_names);
+        return distance;
+    }
 }
 
 
 void bfs_delete_path(List** path) {
-
+    size_t path_size = List_get_size(*path);
+    for (int i = 0; i < path_size; i++) {
+        char** node_name = List_pop_front(*path);
+        free(node_name);
+    }
+    List_delete(*path);
 }
 
 

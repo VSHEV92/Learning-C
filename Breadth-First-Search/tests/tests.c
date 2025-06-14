@@ -43,13 +43,12 @@ void test_path(Graph* graph, char* from, char* to, int gold_distance) {
     if (result != -1) {
         List_set_printer(*path, path_printer);
         List_print(*path);
+        bfs_delete_path(path);
         puts("");
     }
     puts("");
     
     assert(result == gold_distance);
     
-
-    bfs_delete_path(path);
     free(path);
 }

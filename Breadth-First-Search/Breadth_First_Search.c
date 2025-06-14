@@ -26,6 +26,9 @@ int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** p
     // distanation node is reached
     bool to_node_reached = false;
 
+    // BFS distance
+    int distance;
+
     // add start node to need to process list
     List_push_back_typed(nodes_needed_to_process, from_node, char*);
 
@@ -61,22 +64,22 @@ int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** p
         List_delete(siblings);
     }
 
-    // clean up proccess lists
+
+    // find path and calculate distance
+    if (!to_node_reached) {
+        *path = NULL;
+        distance =  -1;
+    }
+    else {
+        distance = bfs_create_path(from_to_node_names, from_node, to_node, path);
+    }
+
+    // clean up
     List_delete(nodes_needed_to_process);
     List_delete(nodes_already_processed);
+    Dict_delete(from_to_node_names);
 
-    // if path to distination node not found, return from function
-    if (!to_node_reached) {
-        Dict_delete(from_to_node_names);
-        *path = NULL;
-        return -1;
-    }
-    // esle create path from start to destination node and calculate distance
-    else {
-        int distance = bfs_create_path(from_to_node_names, from_node, to_node, path);
-        Dict_delete(from_to_node_names);
-        return distance;
-    }
+    return distance;
 }
 
 

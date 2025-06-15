@@ -10,6 +10,7 @@ static void dijkstra_set_distance(Dict* distances_dict, char* node_name, int dis
 static char** dijkstra_get_next_node(Dict* distances_dict, List* processed_nodes);
 static void dijkstra_create_path(Dict* from_to_node_names, char* from_node, char* to_node, List** path);
 
+void dijkstra_delete_distance_dict(Dict* distances_dict);
 
 int Dijkstra (Graph* graph, char* from_node, char* to_node, List** path) {
 
@@ -34,7 +35,7 @@ int Dijkstra (Graph* graph, char* from_node, char* to_node, List** path) {
     char** processed_node = dijkstra_get_next_node(distances_dict, nodes_already_processed);
     
     // node process loop
-    while ( *processed_node != NULL ) {
+    while ( processed_node != NULL ) {
 
         // get current distance and set node as processed
         int current_distance = Dict_get_typed(distances_dict, *processed_node, int);
@@ -54,10 +55,12 @@ int Dijkstra (Graph* graph, char* from_node, char* to_node, List** path) {
             char** sibling_name = List_pop_front(siblings);
             int new_distance = current_distance + Graph_get_distance(graph, *processed_node, *sibling_name);
 
+            // if node apeare first time, then add in to distances dictionary
             if ( !Dict_key_exist(distances_dict, *sibling_name) ) {
                 dijkstra_set_distance(distances_dict, *sibling_name, new_distance);
                 Dict_set_typed(from_to_node_names, *sibling_name, *processed_node, char*);
             } 
+            // if node is already in dictionary and we find shorter path, then update distance
             else {
                 int old_distance = Dict_get_typed(distances_dict, *sibling_name, int);
                 if (old_distance > new_distance) {
@@ -87,6 +90,7 @@ int Dijkstra (Graph* graph, char* from_node, char* to_node, List** path) {
     // clean up
     List_delete(nodes_already_processed);
     Dict_delete(from_to_node_names);
+    dijkstra_delete_distance_dict(distances_dict);
 
     return distance;
 }
@@ -99,6 +103,21 @@ void dijkstra_delete_path(List** path) {
         free(node_name);
     }
     List_delete(*path);
+}
+
+
+void dijkstra_delete_distance_dict(Dict* distances_dict) {
+    List* keys = Dict_get_keys(distances_dict);
+    size_t keys_number = List_get_size(keys);
+
+    for (size_t i = 0; i < keys_number; i++) {
+        char* key = List_pop_front_typed(keys, char*);
+        int* dist_ptr = Dict_get(distances_dict, key);
+        free(dist_ptr);
+    }
+
+    List_delete(keys);
+    Dict_delete(distances_dict);
 }
 
 
@@ -121,26 +140,27 @@ static char** dijkstra_get_next_node(Dict* distances_dict, List* processed_nodes
     List* nodes = Dict_get_keys(distances_dict);
     size_t nodes_number = List_get_size(nodes);
 
-    int min_distance;
-    char** next_node = malloc( sizeof(char*) );
-    *next_node = NULL;
+    int min_distance = -1;
+    char** next_node;
 
     for (size_t i = 0; i < nodes_number; i++) {
-        char* node_name = List_pop_front_typed(nodes, char*);
+        char** node_name = List_pop_front(nodes);
 
-        bool is_already_processed = List_value_exists_typed(processed_nodes, node_name, char*);
+        bool is_already_processed = List_value_exists(processed_nodes, node_name);
         if (is_already_processed) {
             continue;
         }
 
-        int distance = Dict_get_typed(distances_dict, node_name, int);
+        int distance = Dict_get_typed(distances_dict, *node_name, int);
 
-        if (min_distance > distance || *next_node == NULL) {
+        if (min_distance > distance || min_distance == -1) {
             min_distance = distance;
-            *next_node = node_name;
+            next_node = node_name;
         }
     }
-    return next_node;
+    
+    List_delete(nodes);
+    return (min_distance == -1) ? NULL : next_node;
 }
 
 // halper function, used to create path from start to destination node and calculate distance

@@ -18,24 +18,24 @@ int main() {
     test_path(graph, "A", "D", 4);
     test_path(graph, "A", "H", 8);
     puts("");
-//
-//    puts("---- Test paths from D node ----\n");
-//    test_path(graph, "D", "D", 0);
-//    test_path(graph, "D", "G", 3);
-//    test_path(graph, "D", "A", -1);
-//    puts("");
-//
-//    puts("---- Test paths from F node ----\n");
-//    test_path(graph, "F", "B", 2);
-//    test_path(graph, "F", "C", 3);
-//    test_path(graph, "F", "H", 2);
-//    puts("");
-//
-//    puts("---- Test paths from H node ----\n");
-//    test_path(graph, "H", "B", 2);
-//    test_path(graph, "H", "E", 5);
-//    test_path(graph, "H", "F", 3);
-//    puts("");
+
+    puts("---- Test paths from D node ----\n");
+    test_path(graph, "D", "D", 0);
+    test_path(graph, "D", "G", 3);
+    test_path(graph, "D", "A", -1);
+    puts("");
+
+    puts("---- Test paths from F node ----\n");
+    test_path(graph, "F", "B", 5);
+    test_path(graph, "F", "C", 7);
+    test_path(graph, "F", "H", 6);
+    puts("");
+
+    puts("---- Test paths from H node ----\n");
+    test_path(graph, "H", "B", 6);
+    test_path(graph, "H", "E", 10);
+    test_path(graph, "H", "F", 11);
+    puts("");
 
 
     puts(

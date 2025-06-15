@@ -68,8 +68,6 @@ int Dijkstra (Graph* graph, char* from_node, char* to_node, List** path) {
 
         }
 
-        Dict_print(from_to_node_names);
-        puts("");
         List_delete(siblings);
         processed_node = dijkstra_get_next_node(distances_dict, nodes_already_processed);
         

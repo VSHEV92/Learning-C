@@ -15,9 +15,9 @@ int main() {
 
     puts("---- Test paths from A node ----\n");
     test_path(graph, "A", "B", 1);
-//    test_path(graph, "A", "D", 2);
-//    test_path(graph, "A", "H", 4);
-//    puts("");
+    test_path(graph, "A", "D", 4);
+    test_path(graph, "A", "H", 8);
+    puts("");
 //
 //    puts("---- Test paths from D node ----\n");
 //    test_path(graph, "D", "D", 0);

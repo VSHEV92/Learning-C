@@ -74,9 +74,9 @@ typedef void (*Dict_printer)(void* value);
  *  
  *  return: (type)value
  */
-#define Dict_get_typed(dict, key, type) {(     \
-        *( (type*)Dict_get(dict, key) )        \
-    )}                                         \
+#define Dict_get_typed(dict, key, type) (     \
+        *( (type*)Dict_get(dict, key) )       \
+    )                                         \
 
 
 /**

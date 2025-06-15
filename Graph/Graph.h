@@ -118,6 +118,19 @@ List* Graph_get_node_siblings(Graph* graph, char* node_name);
 
 
 /**
+ *  Get distance between nodes by there names
+ *
+ *  args:
+ *      graph: poiner to Graph
+ *      from_node: start graph node name
+ *      to_node: destination graph node name
+ *  
+ *  return: (int) distance
+ */
+int Graph_get_distance(Graph* graph, char* from_node, char* to_node);
+
+
+/**
  *  Get number of graph nodes  
  *
  *  args:

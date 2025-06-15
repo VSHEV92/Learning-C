@@ -115,6 +115,13 @@ List* Graph_get_node_siblings(Graph* graph, char* node_name) {
 }
 
 
+int Graph_get_distance(Graph* graph, char* from_node, char* to_node) {
+    Dict* node = Dict_get_typed(graph->nodes, from_node, Dict*);
+    int distance = Dict_get_typed(node, to_node, int);
+    return distance;
+}
+
+
 Graph_node* Graph_node_create(char* name) {
 
     Graph_node* graph_node = malloc( sizeof(Graph_node) );

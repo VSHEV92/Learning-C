@@ -83,7 +83,7 @@ void Dict_set(Dict* dict, char* key, void* value) {
     size_t hash = Dict_get_hash(key, dict->max_hash);
     List* hash_list = dict->nodes[hash];
 
-    int key_index = List_get_index_by_value_typed(hash_list, key, char*);
+    int key_index = List_get_index_by_value(hash_list, key);
 
     if ( key_index == -1) {
         Dict_node* dict_node = malloc( sizeof(Dict_node) );

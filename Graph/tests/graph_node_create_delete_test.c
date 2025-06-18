@@ -1,6 +1,6 @@
 #include "tests.h"
 
-void graph_node_create_delete_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Create then delete graph node\n");
@@ -22,4 +22,6 @@ void graph_node_create_delete_test() {
     puts("Delete graph node");
     Graph_node_delete(graph_node);
     puts("");
+
+    return 0;
 }

@@ -1,6 +1,6 @@
 #include "tests.h"
 
-void graph_node_get_distance_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Add siblings and get there distance\n");
@@ -35,4 +35,6 @@ void graph_node_get_distance_test() {
     puts("Delete graph node");
     Graph_node_delete(graph_node);
     puts("");
+
+    return 0;
 }

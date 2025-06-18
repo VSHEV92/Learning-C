@@ -1,6 +1,6 @@
 #include "tests.h"
 
-void graph_add_get_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Add and get nodes to graph nodes\n");
@@ -77,4 +77,6 @@ void graph_add_get_test() {
     puts("Delete graph");
     Graph_delete(graph);
     puts("");
+
+    return 0;
 }

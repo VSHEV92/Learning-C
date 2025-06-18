@@ -1,6 +1,6 @@
 #include "tests.h"
 
-void graph_node_add_get_siblings_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Add and get siblings of graph node\n");
@@ -37,4 +37,6 @@ void graph_node_add_get_siblings_test() {
     puts("Delete graph node");
     Graph_node_delete(graph_node);
     puts("");
+
+    return 0;
 }

@@ -1,6 +1,6 @@
 #include "tests.h"
 
-void graph_fill_get_node_names_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Fill nodes to graph and node names\n");
@@ -43,4 +43,6 @@ void graph_fill_get_node_names_test() {
     puts("Delete graph");
     Graph_delete(graph);
     puts("");
+
+    return 0;
 }

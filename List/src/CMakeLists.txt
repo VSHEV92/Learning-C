@@ -1,1 +1,1 @@
-add_library(List STATIC List.c List.h)
+add_library(${PROJECT_NAME} STATIC ${PROJECT_NAME}.c ${HEADERS})

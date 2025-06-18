@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.28)
-project(Stack C)
 
 set(PROJECT_NAME Stack)
+project(${PROJECT_NAME} C)
+
 
 set(HEADERS ${PROJECT_SOURCE_DIR}/src/${PROJECT_NAME}.h)
 

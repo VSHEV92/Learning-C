@@ -4,7 +4,7 @@ static void printer_string(void* value){
     printf("%s ", *( (char**)value ));
 }
 
-void stack_clean_string_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Push then clean for stack of strings\n");
@@ -57,4 +57,5 @@ void stack_clean_string_test() {
     assert(stack != NULL);
     puts("");
     
+    return 0;
 }

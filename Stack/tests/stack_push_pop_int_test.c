@@ -4,7 +4,7 @@ static void printer_int(void* value){
     printf("%d ", *( (int*)value ));
 }
 
-void stack_push_pop_int_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Push then pop for stack of integers\n");
@@ -61,4 +61,5 @@ void stack_push_pop_int_test() {
     assert(stack != NULL);
     puts("");
     
+    return 0;
 }

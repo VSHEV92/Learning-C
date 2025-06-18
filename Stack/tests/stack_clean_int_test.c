@@ -4,7 +4,7 @@ static void printer_int(void* value){
     printf("%d ", *( (int*)value ));
 }
 
-void stack_clean_int_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Push then clean for stack of integers\n");
@@ -57,4 +57,5 @@ void stack_clean_int_test() {
     assert(stack != NULL);
     puts("");
     
+    return 0;
 }

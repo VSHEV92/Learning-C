@@ -5,7 +5,7 @@ static void printer_string(void* node){
     printf("%s -> %s, ", dict_node->key, *( (char**)(dict_node->value) ) );
 }
 
-void dict_set_clean_string_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Set and then clean value to dict of strings\n");
@@ -65,4 +65,5 @@ void dict_set_clean_string_test() {
     assert(dict != NULL);
     puts("");
     
+    return 0;
 }

@@ -14,7 +14,7 @@ static void printer_int(void* node){
     printf("%s -> %d, ", dict_node->key, *((int*)dict_node->value) );
 }
 
-void dict_set_get_keys_int_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Set and then get keys to dict of integers\n");
@@ -106,4 +106,5 @@ void dict_set_get_keys_int_test() {
     assert(dict != NULL);
     puts("");
     
+    return 0;
 }

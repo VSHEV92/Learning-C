@@ -5,7 +5,7 @@ static void printer_int(void* node){
     printf("%s -> %d, ", dict_node->key, *((int*)dict_node->value) );
 }
 
-void dict_set_delete_int_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Set and delete, then check that key exists in dict of integers\n");
@@ -79,4 +79,5 @@ void dict_set_delete_int_test() {
     assert(dict != NULL);
     puts("");
     
+    return 0;
 }

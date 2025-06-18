@@ -5,7 +5,7 @@ static void printer_string(void* node){
     printf("%s -> %s, ", dict_node->key, *( (char**)(dict_node->value) ) );
 }
 
-void dict_set_exists_string_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Set and then check that key exists in dict of strings\n");
@@ -77,4 +77,5 @@ void dict_set_exists_string_test() {
     assert(dict != NULL);
     puts("");
     
+    return 0;
 }

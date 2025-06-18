@@ -1,1 +1,1 @@
-add_library(Stack STATIC Stack.c Stack.h)
+add_library(${PROJECT_NAME} STATIC ${PROJECT_NAME}.c ${HEADERS})

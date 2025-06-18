@@ -4,7 +4,7 @@ static void printer_int(void* value){
     printf("%d ", *( (int*)value ));
 }
 
-void list_push_front_delete_tail_by_index_int_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Push front, then delete from tail values by index for list of integers\n");
@@ -70,4 +70,5 @@ void list_push_front_delete_tail_by_index_int_test() {
     assert(list != NULL);
     puts("");
     
+    return 0;
 }

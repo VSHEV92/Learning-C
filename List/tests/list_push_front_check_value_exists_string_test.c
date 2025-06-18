@@ -8,7 +8,7 @@ static int comparer_string(void* lhs, void* rhs){
     return strcmp( *( (char**)lhs ), *( (char**)rhs ));
 }
 
-void list_push_front_check_value_exists_string_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Push front, then check that values exist in list, then clean for list of strings\n");
@@ -75,4 +75,5 @@ void list_push_front_check_value_exists_string_test() {
     assert(list != NULL);
     puts("");
     
+    return 0;
 }

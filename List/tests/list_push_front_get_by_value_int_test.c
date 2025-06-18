@@ -8,7 +8,7 @@ static int comparer_int(void* lhs, void* rhs){
     return *( (int*)lhs ) - *( (int*)rhs );
 }
 
-void list_push_front_get_by_value_int_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Push front, then get indexs by value, then clean for list of integers\n");
@@ -77,4 +77,5 @@ void list_push_front_get_by_value_int_test() {
     assert(list != NULL);
     puts("");
     
+    return 0;
 }

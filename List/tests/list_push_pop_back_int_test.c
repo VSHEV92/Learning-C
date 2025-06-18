@@ -4,7 +4,7 @@ static void printer_int(void* value){
     printf("%d ", *( (int*)value ));
 }
 
-void list_push_pop_back_int_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Push back then pop back for list of integers\n");
@@ -61,4 +61,5 @@ void list_push_pop_back_int_test() {
     assert(list != NULL);
     puts("");
     
+    return 0;
 }

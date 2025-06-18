@@ -4,7 +4,7 @@ static void printer_string(void* value){
     printf("%s ", *( (char**)value ));
 }
 
-void list_push_front_clean_string_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Push front then clean for list of strings\n");
@@ -57,4 +57,5 @@ void list_push_front_clean_string_test() {
     assert(list != NULL);
     puts("");
     
+    return 0;
 }

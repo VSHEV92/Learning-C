@@ -4,7 +4,7 @@ static void printer_string(void* value){
     printf("%s ", *( (char**)value ));
 }
 
-void list_push_pop_front_string_test() {
+int main() {
     puts("");
     puts("-----------------------------------------------------");
     puts("TEST: Push front then pop front for list of strings\n");
@@ -61,4 +61,5 @@ void list_push_pop_front_string_test() {
     assert(list != NULL);
     puts("");
     
+    return 0;
 }

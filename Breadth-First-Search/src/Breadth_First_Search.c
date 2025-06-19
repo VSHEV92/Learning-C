@@ -34,7 +34,19 @@ int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** p
 
     // node process loop
     while ( List_get_size(nodes_needed_to_process) > 0 ) {
-        
+
+        puts("need to process: ");
+        List_print(nodes_needed_to_process); 
+        puts("");
+
+        puts("already process: ");
+        List_print(nodes_already_processed); 
+        puts("");
+
+        puts("from to path: ");
+        Dict_print(from_to_node_names); 
+        puts("");
+
         // get next node name and set it as processed
         char** processed_node = List_pop_front(nodes_needed_to_process);
         List_push_back_typed(nodes_already_processed, *processed_node, char*);
@@ -57,7 +69,10 @@ int Breadth_First_Search (Graph* graph, char* from_node, char* to_node, List** p
                 List_push_back_typed(nodes_needed_to_process, *sibling_name, char*);
 
                 // fill from/to node name relationship
-                Dict_set_typed(from_to_node_names, *sibling_name, *processed_node, char*);
+                bool is_already_in_dict = Dict_key_exist(from_to_node_names, *sibling_name);
+                if ( !is_already_in_dict ) {
+                    Dict_set_typed(from_to_node_names, *sibling_name, *processed_node, char*);
+                }
             }
         }
 

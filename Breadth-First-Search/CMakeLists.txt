@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.28)
 
-set(PROJECT_NAME Breadth-First-Search)
+set(PROJECT_NAME Breadth_First_Search)
 project(${PROJECT_NAME} C)
 
 set(LIST_DIR ${PROJECT_SOURCE_DIR}/../List)

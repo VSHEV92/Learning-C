@@ -11,7 +11,7 @@ include_directories(${DICT_DIR}/src)
 include_directories(${LIST_DIR}/src)
 
 add_subdirectory(src)
-add_subdirectory(tests)
+add_subdirectory(tests EXCLUDE_FROM_ALL)
 
 add_subdirectory(${DICT_DIR} ${DICT_DIR}/build)
 

@@ -1,15 +1,9 @@
 cmake_minimum_required(VERSION 3.28)
-
-set(PROJECT_NAME Dict)
-project(${PROJECT_NAME} C)
-
-set(LIST_DIR ${PROJECT_SOURCE_DIR}/../List)
-
-include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(${LIST_DIR}/src)
+project(Dict C)
 
 add_subdirectory(src)
 add_subdirectory(tests EXCLUDE_FROM_ALL)
 
+set(LIST_DIR ${PROJECT_SOURCE_DIR}/../List)
 add_subdirectory(${LIST_DIR} ${LIST_DIR}/build)
 

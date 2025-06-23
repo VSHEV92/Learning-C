@@ -4,66 +4,133 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/**
+ *  Helper macro for check malloc errors
+ */
+#define BSTREE_MALLOC_CHECK(pointer)         \
+    if (pointer == NULL) {                   \
+        fprintf( stderr, "Malloc error\n" ); \
+        exit(1);                             \
+    }
 
 /**
  *  Binary Search Tree node - one element of a tree
  */
-typedef struct Stack_node {
-    void* value;                // pointer to value of node
-    struct Stack_node* next;    // pointer to next stack node
-} Stack_node;
+typedef struct BSTree_node {
+    int value;                   // value of node
+    struct BSTree_node* left;    // pointer to next left node (lesser values)
+    struct BSTree_node* right;   // pointer to next right node (greater values)
+} BSTree_node;
 
 
 /**
- *  Stack - stack data structure
+ *  Binary Search Tree data structure
  */
 typedef struct {
-    size_t size;        // number of stack nodes, stack size
-    void* printer;      // pointer to function, that can print stack node value 
-    Stack_node* top;    // pointer to top stack node
-} Stack;
+    size_t size;        // number of nodes in BSTree
+    BSTree_node* top;   // pointer to root node of the tree
+} BSTree;
 
 
 /**
- *  Alloc momery for Stack pointer and return in 
+ *  Alloc momery for BSTree pointer and return in 
  *  
- *  return: (Stack*)stack 
+ *  return: (BSTree*)tree 
  */
-//Stack* Stack_create();
+BSTree* BSTree_create();
 
 
 /**
- *  Remove of stack nodes and free there memory   
+ *  Remove all nodes and free there memory   
  *
  *  args:
- *      stack: poiner to Stack
+ *      binary search tree: poiner to BSTree
  *  
  *  return: void
  */
-//void Stack_clean(Stack* stack);
+void BSTree_clean(BSTree* tree);
 
 
 /**
- *  Clean stack nodes, then free stack pointer memory   
+ *  Clean all nodes, then free tree pointer memory   
  *
  *  args:
- *      stack: poiner to Stack
+ *      binary search tree: poiner to BSTree
  *  
  *  return: void
  */
-//void Stack_delete(Stack* stack);
+void BSTree_delete(BSTree* tree);
 
 
 /**
- *  Push value to stack 
+ *  Get current tree size (nodes number)  
  *
  *  args:
- *      stack: poiner to Stack
- *      value: poiner pushed value
+ *      binary search tree: poiner to BSTree
+ *  
+ *  return: (size_t) tree size 
+ */
+size_t BSTree_get_size(BSTree* tree);
+
+
+/**
+ *  Add node to binary search tree   
+ *
+ *  args:
+ *      binary search tree: poiner to BSTree
+ *      value: node value
  *  
  *  return: void
  */
-//void Stack_push(Stack* stack, void* value);
+void BSTree_add(BSTree* tree, int value);
+
+
+/**
+ *  Print all nodes   
+ *
+ *  args:
+ *      binary search tree: poiner to BSTree
+ *  
+ *  return: void
+ */
+void BSTree_print_nodes(BSTree* tree);
+
+
+
+
+
+
+/**
+ *  Alloc momery for BSTree node pointer and return in 
+ *  
+ *  args:
+ *      value: node value
+ *
+ *  return: (BSTree_node*)tree node 
+ */
+BSTree_node* BSTree_node_create(int value);
+
+
+/**
+ *  Free node pointer memory   
+ *
+ *  args:
+ *      tree node: poiner to BSTree_node
+ *  
+ *  return: void
+ */
+void BSTree_node_delete(BSTree_node* node);
+
+
+/**
+ *  Print single node   
+ *
+ *  args:
+ *      tree node: poiner to BSTree_node
+ *  
+ *  return: void
+ */
+void BSTree_node_print(BSTree_node* node);
 
 
 #endif

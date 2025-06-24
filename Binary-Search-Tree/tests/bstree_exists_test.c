@@ -5,7 +5,7 @@ int main() {
     puts("-----------------------------------------------------");
     puts("TEST: Add number to tree and check that they exist in tree \n");
     
-    int array[] = {3, 5, 1, 2, 11, 7, 67, 3};
+    int array[] = {3, 5, 1, 2, 11, 7, 67, 3, 33};
     size_t array_size = sizeof(array)/sizeof(int);
 
 

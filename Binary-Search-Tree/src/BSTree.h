@@ -121,6 +121,17 @@ int BSTree_get_min(BSTree* tree);
 
 
 /**
+ *  Get all in tree values as a sorted array   
+ *
+ *  args:
+ *      binary search tree: poiner to BSTree
+ *  
+ *  return: (int*) array of tree values
+ */
+int* BSTree_get_values(BSTree* tree);
+
+
+/**
  *  Print all nodes   
  *
  *  args:

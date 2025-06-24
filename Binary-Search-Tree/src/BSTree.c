@@ -1,9 +1,10 @@
 #include "BSTree.h"
 
 static void BSTree_recursive_node_print(BSTree_node* node, int indent, char* prefix);
-static void BSTree_recursive_node_add(BSTree_node* node, int value);
+static bool BSTree_recursive_node_add(BSTree_node* node, int value);
 static bool BSTree_recursive_node_exists(BSTree_node* node, int value);
 static void BSTree_recursive_node_clean(BSTree_node* node);
+static int BSTree_recursive_get_values(BSTree_node* node, int* values, int idx);
 
 BSTree* BSTree_create() {
     BSTree* tree = malloc( sizeof(BSTree) );
@@ -37,12 +38,13 @@ size_t BSTree_get_size(BSTree* tree) {
 void BSTree_add(BSTree* tree, int value) {
     if (tree->top == NULL) {
         tree->top = BSTree_node_create(value);
+        tree->size++;
     }
     else {
-        BSTree_recursive_node_add(tree->top, value);
+        if ( BSTree_recursive_node_add(tree->top, value) ) {
+            tree->size++;
+        }
     } 
-
-    tree->size++;
 }
 
 
@@ -71,6 +73,16 @@ int BSTree_get_min(BSTree* tree) {
 
     return current_node->value;
 }
+
+
+int* BSTree_get_values(BSTree* tree) {
+    int* values = malloc( tree->size * sizeof(int) );
+    BSTREE_MALLOC_CHECK(values);
+
+    BSTree_recursive_get_values(tree->top, values, 0);
+
+    return values;
+} 
 
 
 void BSTree_print_nodes(BSTree* tree) {
@@ -146,29 +158,31 @@ static void BSTree_recursive_node_print(BSTree_node* node, int indent, char* pre
 }
 
 
-static void BSTree_recursive_node_add(BSTree_node* node, int value) { 
+static bool BSTree_recursive_node_add(BSTree_node* node, int value) { 
 
     if (node->value == value) {
-        return;
+        return false;
     }
 
     if (node->value > value) {
         if (node->left) {
-            BSTree_recursive_node_add(node->left, value);
+            return BSTree_recursive_node_add(node->left, value);
         }
         else {
             BSTree_node* new_node = BSTree_node_create(value);
             node->left = new_node;
+            return true;
         }
     } 
     
     if (node->value < value) {
         if (node->right) {
-            BSTree_recursive_node_add(node->right, value);
+            return BSTree_recursive_node_add(node->right, value);
         }
         else {
             BSTree_node* new_node = BSTree_node_create(value);
             node->right = new_node;
+            return true;
         }
     } 
 
@@ -191,6 +205,23 @@ static bool BSTree_recursive_node_exists(BSTree_node* node, int value) {
     if (node->value < value) {
         return BSTree_recursive_node_exists(node->right, value);
     }
+}
+
+
+static int BSTree_recursive_get_values(BSTree_node* node, int* values, int idx) {
+
+    if (node->left != NULL) {
+        idx = BSTree_recursive_get_values(node->left, values, idx);
+    }
+
+    values[idx] = node->value;
+    idx++;
+
+    if (node->right != NULL) {
+        idx = BSTree_recursive_get_values(node->right, values, idx);
+    }
+
+    return idx;
 }
 
 

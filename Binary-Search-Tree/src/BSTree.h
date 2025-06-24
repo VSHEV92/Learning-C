@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 /**
  *  Helper macro for check malloc errors
@@ -83,6 +84,40 @@ size_t BSTree_get_size(BSTree* tree);
  *  return: void
  */
 void BSTree_add(BSTree* tree, int value);
+
+
+/**
+ *  Chack that node exists in binary search tree   
+ *
+ *  args:
+ *      binary search tree: poiner to BSTree
+ *      value: node value
+ *  
+ *  return: void
+ */
+bool BSTree_exists(BSTree* tree, int value);
+
+
+/**
+ *  Get max value in binary search tree   
+ *
+ *  args:
+ *      binary search tree: poiner to BSTree
+ *  
+ *  return: (int) max value
+ */
+int BSTree_get_max(BSTree* tree);
+
+
+/**
+ *  Get min value in binary search tree   
+ *
+ *  args:
+ *      binary search tree: poiner to BSTree
+ *  
+ *  return: (int) min value
+ */
+int BSTree_get_min(BSTree* tree);
 
 
 /**

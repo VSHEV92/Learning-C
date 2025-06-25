@@ -2,6 +2,7 @@
 
 static void BSTree_recursive_node_print(BSTree_node* node, int indent, char* prefix);
 static bool BSTree_recursive_node_add(BSTree_node* node, int value);
+static bool BSTree_recursive_node_remove(BSTree* tree, BSTree_node* current_node, BSTree_node* parent_node, int value);
 static bool BSTree_recursive_node_exists(BSTree_node* node, int value);
 static void BSTree_recursive_node_clean(BSTree_node* node);
 static int BSTree_recursive_get_values(BSTree_node* node, int* values, int idx);
@@ -50,6 +51,13 @@ void BSTree_add(BSTree* tree, int value) {
 
 bool BSTree_exists(BSTree* tree, int value) {
     return BSTree_recursive_node_exists(tree->top, value);
+}
+
+
+void BSTree_remove(BSTree* tree, int value) {
+    if ( BSTree_recursive_node_remove(tree, tree->top, NULL, value) ) {
+        tree->size--;
+    }
 }
 
 
@@ -186,6 +194,71 @@ static bool BSTree_recursive_node_add(BSTree_node* node, int value) {
         }
     } 
 
+}
+
+
+static bool BSTree_recursive_node_remove(BSTree* tree, BSTree_node* current_node, BSTree_node* parent_node, int value) {
+    if (current_node == NULL) {
+        return false;
+    }
+
+    if (current_node->value > value) {
+        return BSTree_recursive_node_remove(tree, current_node->left, current_node, value);
+    }
+
+    if (current_node->value < value) {
+        return BSTree_recursive_node_remove(tree, current_node->right, current_node, value);
+    }
+
+    bool is_top_node = (parent_node == NULL);
+    BSTree_node** patched_ptr = NULL;
+    
+    // save parent pointer that we need to patch
+    if (is_top_node) {
+        patched_ptr = &(tree->top);
+    }
+    else {
+        patched_ptr = (current_node == parent_node->left) ? &(parent_node->left) : &(parent_node->right);
+    }
+
+    // removed node is leaf node
+    if (current_node->left == NULL && current_node->right == NULL) {
+        *patched_ptr = NULL;
+    }
+    // removed node have one child
+    else if (current_node->left != NULL && current_node->right == NULL) {
+        *patched_ptr = current_node->left;
+    }
+    else if (current_node->left == NULL && current_node->right != NULL) {
+        *patched_ptr = current_node->right;
+    }
+    // removed node have two children
+    else {
+        BSTree_node* replacement_node = current_node->right;
+        BSTree_node* replacement_parent = current_node;
+
+        // case when removed node right child hasn't left child
+        if (current_node->right->left == NULL) {
+            current_node->right->left = (*patched_ptr)->left;
+            *patched_ptr = current_node->right;
+        }
+        else {
+            // find leaf left node (replacement node)
+            while (replacement_node->left != NULL) {
+                replacement_parent = replacement_node;
+                replacement_node = replacement_node->left;
+            }
+            
+            // update parent node and process replacment node right child
+            *patched_ptr = replacement_node;
+            replacement_parent->left = replacement_node->right;
+            replacement_node->left = current_node->left;
+            replacement_node->right = current_node->right;
+        }
+    }
+
+    free(current_node);
+    return true;
 }
 
 

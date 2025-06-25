@@ -99,6 +99,18 @@ bool BSTree_exists(BSTree* tree, int value);
 
 
 /**
+ *  Remove node from tree   
+ *
+ *  args:
+ *      binary search tree: poiner to BSTree
+ *      value: value, that will be removed
+ *  
+ *  return: void
+ */
+void BSTree_remove(BSTree* tree, int value);
+
+
+/**
  *  Get max value in binary search tree   
  *
  *  args:
